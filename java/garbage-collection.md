@@ -58,7 +58,7 @@ Young영역은 다시 Eden 및 두개의 Survivor 영역으로 나뉘므로 우�
 - Survivor 2 (Young)
 - Old
 
-객체가 메모에 할당되는 순서
+### 객체가 메모리에 할당되는 순서
 1. 메모리에 객체가 생성되면 Eden 영역에 객체가 저장된다. 
 2. Eden 영역에 데이터가 꽉 차면 Survivor 영역 둘 중 하나에 할당된다. (두개의 Survivor영역 중 한 영역은 반드시 비어있어야 한다.)
 3. 할당된 Survivor 영역이 차면 GC가 일아나면서 Eden 영역에 있는 객체와 꽉 찬 Survivor 영역에 있는 객체가 비어있는 Survivor 영역으로 이동한다.
