@@ -48,7 +48,7 @@ Heap 영역과 메소드 영역은 JVM이 시작될 때 생성된다.
 
 GC를 해도 더이상 사용 가능한 메모리 영역이 없는데 계속 메모리를 할당하려고 하면 `OutOfMemoryError`가 발생하여 JVM이 다운될 수도 있다.
 
-힙 영역은 크게 `Young`, `Old`, `Perm` 세 영역으로 나뉜다.
+힙 영역은 크게 `Young`, `Old`, ~~`Perm`~~ 세 영역으로 나뉜다.
 > 이 중 Perm영역은 없는것으로 치자. 이 영역은 거의 사용되지 않는 영역으로 자바 언어 레벨에서 사용하는 영역이 아니기 때문이다.
 게다가 JDK 8 부터는 이 영역이 사라졌다.
 
@@ -57,4 +57,14 @@ Young영역은 다시 Eden 및 두개의 Survivor 영역으로 나뉘므로 우�
 - Survivor 1 (Young)
 - Survivor 2 (Young)
 - Old
- 
+
+ 1. 메모리에 객체가 생성되면 Eden 영역에 객체가 저장된다. 
+ 2. Eden 영역에 데이터가 꽉 차면 Survivor 영역 둘 중 하나에 할당된다. (두개의 Survivor영역 중 한 영역은 반드시 비어있어야 한다.)
+ 3. 할당된 Survivor 영역이 차면 GC가 일아나면서 Eden 영역에 있는 객체와 꽉 찬 Survivor 영역에 있는 객체가 비어있는 Survivor 영역으로 이동한다.
+ 4. Survivor 1과 2를 왔다 갔다 하던 객체들은 Old 영역으로 이동한다.
+
+ ## GC의 종류
+ - Minor GC : Young 영역에서 발생하는 GC
+ - Major GC : Old 영역에서 발생하는 GC
+
+ 두가지 GC가 어떻게 상호 작용하느냐에 따라 GC 방식에 차이가 나며 성능에도 영향을 준다.
