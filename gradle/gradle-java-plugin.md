@@ -20,7 +20,7 @@ java 플러그인이 소스코드나 리소스 파일을 참조하기위해 기�
 src/main/java | 자바 소스 파일을 두는 디렉토리
 src/main/resources | 프로그램 실행 중에 참조하는 기타 파일을 두는 폴더
 src/test/java | 단위 테스트를 위한 테스트 자바 소스 파일을 두는 폴더
-src/text/resources | 단위 테스트를 위한 테스트 관련 기타 파일을 두는 폴더
+src/test/resources | 단위 테스트를 위한 테스트 관련 기타 파일을 두는 폴더
 
 >intellij에서 gradle java 프로젝트를 생성하면 생기는 디렉토리 구조가 바로 java 플러그인이 인식하는 디렉토리 구조였다.
 
