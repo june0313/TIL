@@ -55,3 +55,40 @@ interface Observer<T> {
 }
 ```
 onNext 메서드는 0번, 한번, 여러번, 무한히 호출될 수 있다. onError와 onCompleted는 종료 이벤트로 둘 중 하나만 단 한 번 호출될 수 있다. 종료 이벤트가 호출되면 Observable스트림은 끝나고 더이상 이벤트를 보낼 수 없다.
+
+### 비동기와 동기
+- 일반적인 Observable은 비동기로 동작하지만 꼭 비동기일 필요는 없음
+- 명시적으로 비동기로 동작하도록 요청하지 않으면 동기로 실행된다
+- **Observable 이벤트 생성의 중요한 기준은 블로킹/논블로킹 여부이지 동기/비동기가 아니다!**
+
+### 동시성과 병렬성
+- `동시성` : 여러 작업을 합성하거나 번갈아가면서 수행(interleaving)
+- `병렬성` : 서로 다른 CPU나 기기에서 동시에 수행
+
+RxJava 규약에 의하면 onNext, onError, onCompleted 이벤트는 동시에 방출되지 않는다. 즉, 하나의 Observable 스트림은 항상 직렬화되어 스레드에 안전해야한다.
+
+RxJava에서 동시성 혹은 병렬성의 이득을 보려면 여러개의 Observable을 구성(compose)해야 한다. 하나의 Observable 스트림은 항상 직렬화 되어있지만, 각각의 Observable 스트림을 서로 독립적으로 조작할 수 있기 때문에 동시에 병렬 수행 가능하다. 이를 위해 RxJava에서는 merge연산자와 flatMap 연산자등을 사용한다.
+
+### 느긋함과 조급함 (Lazy and Eager)
+Observable이 느긋하다는 뜻은(lazy) 누군가 구독하지 않으면 아무것도 하지 않는다는 뜻이다. 
+
+### 쌍대썽 (duality)
+Observable은 Iterable과 `쌍대(dual)`이다.
+
+| pull(Observable)  | push(Iterable)     |
+| ----------------- | ------------------ |
+| T next()          | onNext(T)          |
+| throws Excemption | onError(Throwable) |
+| returns           | onCompleted()      |
+
+### 카디널리티 (Cardinality)
+|              | 한 개               | 여러개                  |
+| ------------ | ------------------- | ----------------------- |
+| Synchronous  | T getData()         | Iterable<T> getData()   |
+| Asynchronous | Future<T> getData() | Observable<T> getData() |
+
+Future 대신 Observable이 쓸모있는 이유는 다중 값 응답을 다룰 수 있기 때문이다. 컬렉션 전체가 도착할 때 까지 기다리지 않고 항목을 받는 대로 처리할 수 있다.
+
+
+## 리액티브 추상화
+궁극적으로 RxJava의 타입과 연산자는 명령형 콜백 위에 쌓아올린 추상화이다. 
