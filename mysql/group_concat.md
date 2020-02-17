@@ -70,7 +70,7 @@ from
 where s.sellerTypes = 'RETAIL';
 ```
 
-`having` 절을 사용하면 서브쿼리를 없애면 더 깔끔한 쿼리를 만들 수 있다.
+`having` 절을 사용하여 서브쿼리를 없애면 더 깔끔한 쿼리를 만들 수 있다.
 ```sql
 select o.orderId
 from `order` o
