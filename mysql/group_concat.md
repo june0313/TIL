@@ -41,7 +41,8 @@ group by orderId;
 | 1       | RETAIL,THIRD_PARTY      |
 | 2       | THIRD_PARTY,THIRD_PARTY |
 | 3       | RETAIL,RETAIL           |
-`,`를 구분자로 하여 하나의 문자열로 합쳐진 결과를 얻을 수 있다.
+
+`,`를 구분자로 하여 sellerType이 하나의 문자열로 합쳐진 결과를 얻을 수 있다.
 
 `distinct` 키워드를 사용하면 중복 제거가 가능하다.
 ```sql
@@ -57,6 +58,7 @@ group by orderId;
 | 1       | RETAIL,THIRD_PARTY |
 | 2       | THIRD_PARTY        |
 | 3       | RETAIL             |
+
 이제 RETAIL 상품만 주문한 주문을 뽑아내는건 식은 죽 먹기다.
 ```sql
 select s.orderId 
